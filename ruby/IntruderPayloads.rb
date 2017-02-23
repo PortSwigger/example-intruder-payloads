@@ -20,16 +20,16 @@ class BurpExtender
 
   def registerExtenderCallbacks(callbacks)
     # obtain an extension helpers object
-    @helpers = callbacks.getHelpers()
+    @helpers = callbacks.getHelpers
 
     # set our extension name
-    callbacks.setExtensionName("Custom intruder payloads")
+    callbacks.setExtensionName "Custom intruder payloads"
 
     # register ourselves as an Intruder payload generator
-    callbacks.registerIntruderPayloadGeneratorFactory(self)
+    callbacks.registerIntruderPayloadGeneratorFactory self
 
     # register ourselves as an Intruder payload processor
-    callbacks.registerIntruderPayloadProcessor(self)
+    callbacks.registerIntruderPayloadProcessor self
   end
 
   #
@@ -56,7 +56,7 @@ class BurpExtender
   def processPayload(currentPayload, originalPayload, baseValue)
     # decode the base value
     dataParameter = @helpers.bytesToString(
-        @helpers.base64Decode(@helpers.urlDecode(baseValue)))
+        @helpers.base64Decode(@helpers.urlDecode baseValue))
 
     # parse the location of the input string in the decoded data
     start = dataParameter.index("input=") + 6
@@ -71,7 +71,7 @@ class BurpExtender
     # rebuild the serialized data with the new payload
     dataParameter = prefix + @helpers.bytesToString(currentPayload) + suffix
     return @helpers.stringToBytes(
-        @helpers.urlEncode(@helpers.base64Encode(dataParameter)))
+        @helpers.urlEncode(@helpers.base64Encode dataParameter))
   end
 end
 
@@ -93,6 +93,7 @@ class IntruderPayloadGenerator
   def getNextPayload(baseValue)
     payload = PAYLOADS[@payloadIndex]
     @payloadIndex = @payloadIndex + 1
+
     return payload
   end
 

@@ -84,6 +84,7 @@ class IntruderPayloadGenerator(IIntruderPayloadGenerator):
     def getNextPayload(self, baseValue):
         payload = PAYLOADS[self._payloadIndex]
         self._payloadIndex = self._payloadIndex + 1
+
         return payload
 
     def reset(self):
