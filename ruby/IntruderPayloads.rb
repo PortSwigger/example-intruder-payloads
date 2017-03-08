@@ -66,7 +66,7 @@ class BurpExtender
     end_ = dataParameter.index("&", start)
     end_ = dataParameter.length if end_ == -1
 
-    suffix = dataParameter[end_...dataParameter.length]
+    suffix = dataParameter[end_..-1]
 
     # rebuild the serialized data with the new payload
     dataParameter = prefix + @helpers.bytesToString(currentPayload) + suffix
